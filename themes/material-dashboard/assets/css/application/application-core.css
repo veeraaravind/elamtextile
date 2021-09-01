@@ -1,0 +1,7 @@
+.main-panel {
+    background-color: white;
+}
+
+select.form-control:not([size]):not([multiple]) {
+    height: 36px;
+}
