@@ -1,0 +1,84 @@
+.main-panel {
+    background-color: white;
+}
+
+main > .parent-container {
+    margin-top: 5rem;
+}
+
+.navbar .navbar-collapse {
+    justify-content: flex-end;
+}
+
+.generateLoom {
+    margin-top: 2rem;
+}
+
+.modal-body {
+    background-color: #f9f3f3;
+}
+
+.modal-body .jumbotron,
+#weaverDetailedTab .jumbotron {
+    padding: 1rem 1rem;
+    background-color: #f8fcff;
+}
+
+#userModal .modal-dialog,
+#userModal .modal-content,
+#sareeTypeModal .modal-dialog,
+#sareeTypeModal .modal-content,
+#mapWarpWeaverModal .modal-content,
+#mapWarpWeaverModal .modal-dialog,
+#mapWarpBabeenWeaverModal .modal-content,
+#mapWarpBabeenWeaverModal .modal-dialog,
+#paymentWarpModal .modal-content,
+#paymentWarpModal .modal-dialog,
+#mapWarpWeaverInventoryModal .modal-content,
+#mapWarpWeaverInventoryModal .modal-dialog,
+#defaultViewModal .modal-dialog,
+#defaultViewModal .modal-content,
+#warpWeaverChangeStatusModal .modal-dialog,
+#warpWeaverChangeStatusModal .modal-content,
+#companyModal .modal-dialog,
+#companyModal .modal-content{
+    height: 95%;
+}
+
+#userModal .modal-body,
+#sareeTypeModal .modal-body,
+#mapWarpWeaverModal .modal-body,
+#mapWarpBabeenWeaverModal .modal-body,
+#paymentWarpModal .modal-body,
+#mapWarpWeaverInventoryModal .modal-body,
+#defaultViewModal .modal-body,
+#warpWeaverChangeStatusModal .modal-body,
+#companyModal .modal-body {
+    max-height: calc(100% - 120px);
+    overflow-y: scroll;
+}
+
+.grid-view .action-column {
+    min-width: 106px;
+}
+
+.map-warp-weaver-index {
+    margin-top: 10px;
+}
+
+.select2-container--bootstrap .select2-selection {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.select2-container li[aria-disabled='true'] {
+    display: none;
+}
+
+.fixedFooter {
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+}
+
