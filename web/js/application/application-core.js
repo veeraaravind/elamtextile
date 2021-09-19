@@ -445,5 +445,18 @@ $(document).on('click', '.grid-view a[title="Detailed View"]', function(e) {
     window.location.href = $(this).attr('href');
 });
 
+$(document).on('click', '.addTranslation', function(e) {
+    let documentElement = $(document), 
+        element = documentElement.find('.eachTranslation:eq(0)').clone();
+
+    documentElement.find('.translationContent').append(element);
+    documentElement.find('.translationContent .eachTranslation:last input').val('');
+    documentElement.find('.translationContent .eachTranslation:last input:first').focus();
+    documentElement.find('.translationContent .eachTranslation:last .deleteTranslation').removeClass('d-none');
+});
+
+$(document).on('click', '.deleteTranslation', function(e) {
+    $(this).closest('.eachTranslation').remove();
+});
 
 

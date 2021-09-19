@@ -72,7 +72,7 @@ AppAsset::register($this);
 <main role="main" class="flex-shrink-0">
     <div class="parent-container d-flex">
         <?php if (!Yii::$app->user->isGuest): ?>
-            <div class="container leftMenuContainer" style="width: 18rem; position:fixed;">
+            <div class="container leftMenuContainer" style="width: 18rem;">
                 <div class="list-group">
                     <?php
                         $currentURL = urldecode(Yii::$app->request->url); 
@@ -85,7 +85,8 @@ AppAsset::register($this);
                                 ['label' => Yii::t('app', 'Master'), 'icon' => 'database', 'items' => [
                                     ['label' => Yii::t('app', 'Company'), 'icon' => 'building', 'url' => ['/company/index']],
                                     ['label' => Yii::t('app', 'Colour'), 'icon' => 'palette', 'url' => ['/colour/index']],
-                                    ['label' => Yii::t('app', 'Bank'), 'icon' => 'university', 'url' => ['/bank/index']]
+                                    ['label' => Yii::t('app', 'Bank'), 'icon' => 'university', 'url' => ['/bank/index']],
+                                    ['label' => Yii::t('app', 'Tamil Translation'), 'icon' => 'language', 'url' => ['/site/tamil-translation']]
                                 ]],
                                 ['label' => Yii::t('app', 'Saree Type'), 'icon' => 'tshirt', 'url' => ['/saree-type/index']],
                                 [
@@ -118,7 +119,7 @@ AppAsset::register($this);
                 </div>
             </div>
         <?php endif; ?>
-        <div class="container mainContentContainer" style="margin-left:18rem;">
+        <div class="container mainContentContainer" style="margin-left:3rem;">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>

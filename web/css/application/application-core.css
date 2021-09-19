@@ -74,6 +74,13 @@ main > .parent-container {
     display: none;
 }
 
+.leftMenuContainer .card.border-default {
+    position:fixed;
+    width: 17rem;
+    height: calc(100% - 150px);
+    overflow: auto;
+}
+
 .fixedFooter {
     position: sticky;
     bottom: 0;

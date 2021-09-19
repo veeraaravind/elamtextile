@@ -10,7 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\controllers\BaseController;
-
+use yii\i18n\PhpMessageSource;
 class SiteController extends BaseController
 {
     /**
@@ -125,5 +125,38 @@ class SiteController extends BaseController
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionTamilTranslation()
+    {
+        $filePath = Yii::getalias("@app/messages/ta_IN/app.php");
+        $options = ['isSaved' => 0];
+        if (Yii::$app->request->post()) {
+            $optionString = '';
+            foreach ($_POST['translation']['english'] as $index => $value) {
+                if (!empty($value)) {
+                    $optionString = sprintf('%s"%s" => "%s",%s',
+                        $optionString,
+                        $value,
+                        $_POST['translation']['tamil'][$index],
+                        PHP_EOL
+                    );
+                }
+            }
+            file_put_contents(
+                $filePath, 
+                sprintf(
+                    '<?php %sreturn [%s%s]; %s?>',
+                    PHP_EOL, 
+                    PHP_EOL,
+                    $optionString,
+                    PHP_EOL
+                )
+            );
+            $options['isSaved'] = 1;
+        }
+        $translation = include($filePath);
+        $options['translations'] = $translation;
+        return $this->render('translation', $options);
     }
 }
