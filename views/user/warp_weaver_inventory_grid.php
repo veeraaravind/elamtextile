@@ -19,12 +19,12 @@ $isWarpFinished = $mapWarpWeaverInventoryData['manipulated_business_data']['sare
     <div class="btn-group float-right" role="group" aria-label="Basic example">
         <?php if (!$isWarpFinished): ?>
             <button type="button" class="btn btn-primary mr-1 addWarpWeaverInventory"><?php echo Yii::t('app', 'Add Inventory'); ?></button>
-            <button type="button" class="btn btn-primary mr-1 d-none"><?php echo Yii::t('app', 'Add Babeen'); ?></button>
+            <button type="button" class="btn btn-primary mr-1 addBabeenToWarp"><?php echo Yii::t('app', 'Add Babeen'); ?></button>
         <?php endif; ?>
         <button type="button" class="btn btn-primary warpWeaverChangeStatus"><?php echo Yii::t('app', 'Change Warp Status'); ?></button>
     </div>
 </div>
-<table id="MapWarpWeaverInventoryTable" class="table table-striped table-bordered" style="width:100%">
+<table id="MapWarpWeaverInventoryTable" class="table table-striped table-bordered" style="width:100%; background-color:white;">
     <thead>
         <tr>
             <th style="width: 45px;"><?php echo Yii::t('app', 'Date'); ?></th>

@@ -113,6 +113,9 @@ AppAsset::register($this);
                                         ['user/index', 'UserSearch[user_type_id]' => 5]
                                     )) ? true : false
                                 ],
+                                ['label' => Yii::t('app', 'Reports'), 'icon' => 'flag', 'items' => [
+                                    ['label' => Yii::t('app', 'Finished Warp Details'), 'icon' => 'building', 'url' => ['/user/finished-warp-report']]
+                                ]],
                             ],
                         ]);
                     ?>

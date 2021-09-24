@@ -17,6 +17,7 @@ use yii\helpers\ArrayHelper;
 use app\models\MapWeaverLoom;
 use app\models\MapWarpBabeenWeaverSearch;
 use app\models\MapWarpWeaverInventorySearch;
+use app\models\MapWarpWeaverInventory;
 use app\models\Colour;
 /**
  * UserController implements the CRUD actions for User model.
@@ -178,22 +179,30 @@ class UserController extends BaseController
         $bankList = Bank::find()->where(['status' => 1])->all();
         $sareeTypeList = ArrayHelper::map(SareeType::find()->asArray()->all(), 'id', 'name');
         if (UserType::$weaver == $model->user_type_id) {
-            $warpWeaverList = ArrayHelper::map(
-                MapWarpWeaver::getWarpWeaverList(null, $id),
+            $warpWeaverList = MapWarpWeaver::getWarpWeaverList($id);
+            $babeenProviderList = ArrayHelper::map(
+                User::find()->where(['user_type_id' => UserType::$babeenProvider])->asArray()->all(),
                 'id',
                 'name'
             );
-            
+            $finalWarpWeaverList = [];
+            foreach ($warpWeaverList as $value) {
+                if ($value['status'] != MapWarpWeaver::WARP_FINISHED_STATUS) {
+                    $finalWarpWeaverList[$value['id']] = $value['name'];
+                }
+            }
             $mapWarpWeaverInventoryData = (new MapWarpWeaverInventorySearch)->getWarpWeaverInventoryData(0);
             
             return $this->render(
                 'weaver_detailed_view',
                 [
                     'model' => $model,
-                    'warpWeaverList' => $warpWeaverList,
+                    'warpWeaverList' => $finalWarpWeaverList,
                     'mapWarpWeaverInventoryData' => $mapWarpWeaverInventoryData,
                     'bankList' => $bankList,
-                    'sareeTypeList' => $sareeTypeList
+                    'sareeTypeList' => $sareeTypeList,
+                    'babeenProviderList' => $babeenProviderList,
+                    'initialValue' => Yii::t('app', 'Select Babeen Provider')
                 ]
             );
         } elseif (UserType::$warpProvider == $model->user_type_id) {
@@ -227,11 +236,19 @@ class UserController extends BaseController
             $queryParams['MapWarpBabeenWeaverSearch']['babeen_provider_id'] = $id;
             $searchModel = new MapWarpBabeenWeaverSearch();
             $dataProvider = $searchModel->search($queryParams);
-            $warpWeaverList = ArrayHelper::map(
-                MapWarpWeaver::getWarpWeaverList(),
+            $babeenProviderList = ArrayHelper::map(
+                User::find()->where(['user_type_id' => UserType::$babeenProvider])->asArray()->all(),
                 'id',
                 'name'
             );
+
+            $finalWarpWeaverList = [];
+            $warpWeaverList = MapWarpWeaver::getWarpWeaverList();
+            foreach ($warpWeaverList as $value) {
+                if ($value['status'] != MapWarpWeaver::WARP_FINISHED_STATUS) {
+                    $finalWarpWeaverList[$value['id']] = $value['name'];
+                }
+            }
             
             return $this->render(
                 'babeen_provider_view',
@@ -239,9 +256,11 @@ class UserController extends BaseController
                     'model' => $model,
                     'searchModel' => $searchModel,
                     'dataProvider' => $dataProvider,
-                    'warpWeaverList' => $warpWeaverList,
+                    'warpWeaverList' => $finalWarpWeaverList,
                     'bankList' => $bankList,
-                    'sareeTypeList' => $sareeTypeList
+                    'sareeTypeList' => $sareeTypeList,
+                    'babeenProviderList' => $babeenProviderList,
+                    'initialValue' => $id
                 ]
             );
         }
@@ -260,6 +279,26 @@ class UserController extends BaseController
             'warp_weaver_inventory_grid',
             [
                 "mapWarpWeaverInventoryData" => $mapWarpWeaverInventoryData
+            ]
+        );
+    }
+
+    public function actionFinishedWarpReport($warp_weaver_id = 0)
+    {
+        $mapWarpWeaverInventoryModel = new MapWarpWeaverInventory;
+        $mapWarpWeaverInventoryData = $mapWarpWeaverInventoryModel->getWarpWeaverInventoryData($warp_weaver_id);
+        $weaverLoomList = ArrayHelper::map(
+            MapWeaverLoom::getWeaverLoomList(),
+            'id',
+            'name'
+        );
+        
+        return $this->render(
+            'finished_warp_report',
+            [
+                'weaverLoomList' => $weaverLoomList,
+                'mapWarpWeaverInventoryData' => $mapWarpWeaverInventoryData,
+                'warpStatusList' => $mapWarpWeaverInventoryModel->getWarpStatusList()
             ]
         );
     }

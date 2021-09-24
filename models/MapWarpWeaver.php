@@ -137,7 +137,7 @@ class MapWarpWeaver extends \app\models\BaseModel
         return parent::beforeValidate();
     }
 
-    public static function getWarpWeaverList($warpWeaverId = null, $weaverId = null)
+    public static function getWarpWeaverList($weaverId = null, $weaverLoomId = null, $warpWeaverId = null)
     {
         $sql = 'SELECT
                     ww.id,
@@ -146,7 +146,8 @@ class MapWarpWeaver extends \app\models\BaseModel
                         "[ ", wl.loom_name, " ]",
                         "[ ", ww.name, " ]",
                         "[ ", st.name, " ]"
-                    ) as "name"
+                    ) as "name",
+                    ww.status
                 FROM
                     map_warp_weaver ww
                     JOIN map_weaver_loom as wl ON ww.weaver_loom_id = wl.id
@@ -156,14 +157,19 @@ class MapWarpWeaver extends \app\models\BaseModel
                     ##CONDITION##
             ';
         $replacement = [1]; $params = [':user_type_id' => UserType::$weaver];
-        if ($warpWeaverId !== null) {
-            $replacement[] = 'ww.id =:id';
-            $params[':id'] = $warpWeaverId;
-        }
         if ($weaverId !== null) {
             $replacement[] = 'u.id =:user_id';
             $params[':user_id'] = $weaverId;
         }
+        if ($weaverLoomId !== null) {
+            $replacement[] = 'ww.weaver_loom_id =:loom_id';
+            $params[':loom_id'] = $weaverLoomId;
+        }
+        if ($warpWeaverId !== null) {
+            $replacement[] = 'ww.id =:id';
+            $params[':id'] = $warpWeaverId;
+        }
+        
         $sql = str_replace('##CONDITION##', implode(' AND ', $replacement), $sql);
         $sqlQuery = Yii::$app->getDb()->createCommand($sql, $params);
         return $sqlQuery->queryAll();

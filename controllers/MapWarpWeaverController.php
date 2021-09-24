@@ -10,6 +10,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\MapWarpWeaverInventory;
 use app\models\MapWeaverLoom;
+use yii\helpers\ArrayHelper;
 
 /**
  * MapWarpWeaverController implements the CRUD actions for MapWarpWeaver model.
@@ -199,5 +200,19 @@ class MapWarpWeaverController extends BaseController
         }
 
         return json_encode($response);
+    }
+
+    public function actionGetWeaverLoomWarp($weaverLoomId)
+    {
+        $finalList = [["id" => "", "text" => Yii::t('app', 'Select Weaver Warp')]];
+        $warpWeaverList = MapWarpWeaver::getWarpWeaverList(null, $weaverLoomId);
+        foreach ($warpWeaverList as $index => $value) {
+            if ($value['status'] == MapWarpWeaver::WARP_FINISHED_STATUS) {
+                $value['text'] = $value['name'];
+                $finalList[] = $value;
+            }
+        }
+
+        return json_encode($finalList);
     }
 }

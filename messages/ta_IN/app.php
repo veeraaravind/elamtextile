@@ -4,5 +4,6 @@ return [
 "Jarigai Kattai Need to return" => "ஜரிகை கட்டை திரும்ப வேண்டும்",
 "Weaver" => "நெசவாளர்",
 "Saree Type" => "புடவை வகை",
+"Reports" => "அறிக்கைகள்",
 ]; 
 ?>

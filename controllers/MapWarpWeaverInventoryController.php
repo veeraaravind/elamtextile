@@ -70,7 +70,7 @@ class MapWarpWeaverInventoryController extends BaseController
         }
         if (
             !empty($data['from_warp_weaver_id']) 
-            && !empty($warpWeaver = MapWarpWeaver::getWarpWeaverList($data['warp_weaver_id']))
+            && !empty($warpWeaver = MapWarpWeaver::getWarpWeaverList(null, null, $data['warp_weaver_id']))
         ) {
             $data['foreign_value_from_warp_weaver_id'] = $warpWeaver[0]['name'];
         }
@@ -258,12 +258,22 @@ class MapWarpWeaverInventoryController extends BaseController
         $content = $this->renderPartial(
             '/mapwarpweaverinventory/weaver_inventory_details',
             [
+                'warpStatusList' => MapWarpWeaver::getWarpStatusList(),
                 'mapWarpWeaverInventoryData' => $mapWarpWeaverInventoryData,
                 'company' => $company
             ]
         );
+        $sareeCountCalculation = $mapWarpWeaverInventoryData['manipulated_business_data']['sareeCountCalculation']; 
+        $fileName = sprintf(
+            '%s-%s-%s-%s.pdf', 
+            $sareeCountCalculation['weaver_name'], 
+            $sareeCountCalculation['loom_name'], 
+            $sareeCountCalculation['warp_name'],
+            date('Y-m-d_H-i-s')
+        );
         $pdf = Yii::$app->pdf;
         $pdf->content = $content;
+        $pdf->filename = $fileName;
         return $pdf->render();
     }
 }

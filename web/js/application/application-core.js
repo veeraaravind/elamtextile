@@ -28,6 +28,7 @@ function clearModalFieldValues(modelName) {
         formDataElement = documentElement.find('form#'+lcfirst(modelName)+'Form'),
         saveButtonElement = documentElement.find('.saveData');
 
+    formDataElement.find('input[type="checkbox"]:not(.mandatoryField)').prop('checked', false);
     formDataElement.find(':not(.mandatoryField):not(option)').val('');
     formDataElement.find('select').change();
     saveButtonElement.removeAttr('data-id');
@@ -204,6 +205,8 @@ function checkPageBasedDomUpdate(model, formData = null) {
             });
         });
     } else if (model == 'MapWarpWeaverInventory' && (cardElement = $(document).find('.warpWeaverInventoryGrid')).length) {
+        $(document).find('.warpWeaverDetailsDropdown').change();
+    } else if (model == 'MapWarpBabeenWeaver' && (cardElement = $(document).find('.warpWeaverInventoryGrid')).length) {
         $(document).find('.warpWeaverDetailsDropdown').change();
     }
 }

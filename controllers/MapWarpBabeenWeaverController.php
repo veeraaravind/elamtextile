@@ -66,7 +66,7 @@ class MapWarpBabeenWeaverController extends BaseController
             }
             if (
                 !empty($data['warp_weaver_id']) 
-                && !empty($warpWeaver = MapWarpWeaver::getWarpWeaverList($data['warp_weaver_id']))
+                && !empty($warpWeaver = MapWarpWeaver::getWarpWeaverList(null, null, $data['warp_weaver_id']))
             ) {
                 $data['foreign_value_warp_weaver_id'] = $warpWeaver[0]['name'];
             }

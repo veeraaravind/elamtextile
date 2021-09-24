@@ -1,15 +1,24 @@
 <div class="container">
-    <div class="row">
+    <div class="row" style="border:1px solid #dee2e6;">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-12 text-center">
-                    <h4 style="color: #F81D2D;"><strong><?php echo $company['name']?></strong></h4>
-                    <p>
-                        <?php echo $company['address1']?><br>
-                        <?php echo $company['address2']?><br>
-                        <?php echo sprintf('%s - %s', $company['city'], $company['pincode']); ?>
-                    </p>
-                </div>
+                    <div class="col-xs-3 text-left">
+                        <img src="/elamtextile/uploads/company/logo.jpg" style="margin-top:5px; margin-left:5px; width:100px; height:100px;">
+                    </div>
+                    <div class="col-xs-4 col-sm-6 text-center">
+                        <h4 style="color: #F81D2D;"><strong><?php echo $company['name']?></strong></h4>
+                        <p>
+                            <?php echo $company['address1']?><br>
+                            <?php echo $company['address2']?><br>
+                            <?php echo sprintf('%s - %s', $company['city'], $company['pincode']); ?>
+                        </p>
+                    </div>
+                    <div class="col-xs-3 text-right">
+                        <p>
+                            <?php echo sprintf('%s : %s', Yii::t('app', 'Cell'), $company['phone_number']); ?>
+                            <?php echo sprintf('%s', $company['mobile_number']); ?>
+                        </p>
+                    </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -20,12 +29,25 @@
                                     <?php 
                                         $sareeCountCalculation = $mapWarpWeaverInventoryData['manipulated_business_data']['sareeCountCalculation']; 
                                         echo sprintf(
-                                            '%s<br>%s<br>%s<br>%s<br>%s',
-                                            sprintf('<b>Weaver Name :</b> %s [ %s ]', $sareeCountCalculation['weaver_name'], $sareeCountCalculation['loom_name']),
-                                            sprintf('<b>Saree Type :</b> %s', $sareeCountCalculation['saree_type_name']),
-                                            sprintf('<b>Warp :</b> %s', $sareeCountCalculation['warp_name']),
-                                            sprintf('<b>Warp Provider:</b> %s', $sareeCountCalculation['warp_provider_name']),
-                                            sprintf('<b>Warp Roller:</b> %s', $sareeCountCalculation['warp_roller_name'])
+                                            '%s<br>%s<br>%s<br>%s<br>%s<br>%s',
+                                            sprintf('<b>%s :</b> %s [ %s ]', Yii::t('app', 'Weaver Name'), $sareeCountCalculation['weaver_name'], $sareeCountCalculation['loom_name']),
+                                            sprintf('<b>%s :</b> %s', Yii::t('app', 'Saree Type'), $sareeCountCalculation['saree_type_name']),
+                                            sprintf(
+                                                '<b>%s :</b> %s <i>[ %s : %s ]</i> ',
+                                                Yii::t('app', 'Warp'), 
+                                                $sareeCountCalculation['warp_name'],
+                                                Yii::t('app', 'Colour'),
+                                                $sareeCountCalculation['body_colour']
+                                            ),
+                                            sprintf('<b>%s:</b> %s', Yii::t('app', 'Warp Provider'), $sareeCountCalculation['warp_provider_name']),
+                                            sprintf('<b>%s:</b> %s', Yii::t('app', 'Warp Roller'), $sareeCountCalculation['warp_roller_name']),
+                                            sprintf(
+                                                '<b>%s:</b> %s', 
+                                                Yii::t('app', 'Status'), 
+                                                $sareeCountCalculation['warp_status'] !== null ?
+                                                $warpStatusList[$sareeCountCalculation['warp_status']] :
+                                                ''
+                                            )
                                         );
                                     ?>
                                 </td>

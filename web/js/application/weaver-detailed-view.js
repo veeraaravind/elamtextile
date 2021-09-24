@@ -14,7 +14,7 @@ function validateWarpWeaverInventory(formDataElement) {
         let fieldIDWithInvalidData = [], tempErrorFieldsName = '', tempValue, validInput = 0;
         for (field of fields) {
             tempValue = formDataElement.find(`#${field}`).val();
-            if (tempValue == '') {
+            if (tempValue == '' || tempValue <= 0) {
                 fieldIDWithInvalidData.push(field);
             } else {
                 formDataElement.find(`#${field}`).removeClass('border border-danger');
@@ -34,8 +34,8 @@ function validateWarpWeaverInventory(formDataElement) {
     return mainValidationError == 0 && validInputPattern > 0 ? false : true;
 }
 
-$(document).on('change', '.warpWeaverDetailsDropdown', function(e) {
-    let warpWeaverId = $(this).val(), documentElement = $(document);
+function warpWeaverDetailsDropdown(warpWeaverId) {
+    let documentElement = $(document);
 
     $('.warpInitialText, .warpWeaverInventoryRecords, .printWarpWeaverInventory').addClass('d-none');
     $('.spinnerClass').addClass('spinner-border');
@@ -48,11 +48,20 @@ $(document).on('change', '.warpWeaverDetailsDropdown', function(e) {
         }).always(function() {
             $('.spinnerClass').removeClass('spinner-border');
             $('.warpWeaverInventoryRecords, .printWarpWeaverInventory').removeClass('d-none');
+            if (documentElement.find('.warpStatus .badge').attr('data-status') == 6) {
+                documentElement.find('.warpWeaverChangeStatus').addClass('d-none');
+            }
         });
     } else {
         $('.warpInitialText').removeClass('d-none');
         $('.spinnerClass').removeClass('spinner-border');
     }
+}
+
+$(document).on('change', '.warpWeaverDetailsDropdown', function(e) {
+    let warpWeaverId = $(this).val();
+
+    warpWeaverDetailsDropdown(warpWeaverId)
 });
 
 $(document).on('click', '.addWarpWeaverInventory', function(e) {
@@ -96,7 +105,7 @@ $(document).on('click', '.viewWarpWeaverInventory', function(e) {
 $(document).on('click', '.printWarpWeaverInventory', function(e) {
     e.preventDefault();
 
-    let id = $(document).find('.warpWeaverDetailsDropdown').val(),
+    let id = $(document).find('#warp_weaver_id').val(),
         win = window.open(`${baseURL}map-warp-weaver-inventory/print-inventory-record&id=${id}`, '_blank');
 
     if (win) {
@@ -110,9 +119,23 @@ $(document).on('click', '.printWarpWeaverInventory', function(e) {
     }
 });
 
+$(document).on('click', '.addBabeenToWarp', function(e) {
+    let documentElement = $(document),
+        warpWeaverId = documentElement.find('.warpWeaverDetailsDropdown').val();
+
+    documentElement.find('#mapWarpBabeenWeaverForm [name="MapWarpBabeenWeaver[warp_weaver_id]').closest('.col-md-6').addClass('d-none');
+    documentElement.find('#mapWarpBabeenWeaverForm #babeen_provider_id').closest('.col-md-6').removeClass('d-none');
+    documentElement.find('#mapWarpBabeenWeaverForm #babeen_provider_id').val('');
+
+    clearModalFieldValues('MapWarpBabeenWeaver');
+    documentElement.find('#mapWarpBabeenWeaverModal form input').removeClass('border border-danger');
+    documentElement.find('#mapWarpBabeenWeaverModal').modal('show');
+    documentElement.find('#mapWarpBabeenWeaverForm [name="MapWarpBabeenWeaver[warp_weaver_id]"]').val(warpWeaverId);
+});
+
 $(document).on('click', '.warpWeaverChangeStatus', function(e) {
     let documentElement = $(document),
-        warpWeaverId = documentElement.find('.warpWeaverDetailsDropdown').val(),
+        warpWeaverId = documentElement.find('#warp_weaver_id').val(),
         optionList = [],
         warpStatus = documentElement.find('.warpStatus .badge').attr('data-status');
 
@@ -134,7 +157,7 @@ $(document).on('click', '.warpWeaverChangeStatus', function(e) {
             documentElement.find('#warpWeaverChangeStatusModal [name="MapWarpWeaver[status]"]').val('');
             documentElement.find(`#warpWeaverChangeStatusModal [name="MapWarpWeaver[status]"] option[value="${warpStatus}"]`).prop("disabled", true);
             documentElement.find('#warpWeaverChangeStatusModal [name="MapWarpWeaver[status]"]').change();
-            $('#warpWeaverChangeStatusModal').modal('show');
+            documentElement.find('#warpWeaverChangeStatusModal').modal('show');
         }
     ).fail(function (data) {
         Swal.fire({
@@ -147,24 +170,45 @@ $(document).on('click', '.warpWeaverChangeStatus', function(e) {
 
 $(document).on('click', '.saveMovingMapWarpWeaverInventory', function() {
     let documentElement = $(document),
-        warpWeaverId = documentElement.find('.warpWeaverDetailsDropdown').val(),
+        warpWeaverId = documentElement.find('#warp_weaver_id').val(),
         formData = documentElement.find('#warpWeaverChangeStatusForm').serializeArray(),
         statusSelect2 = documentElement.find('#warpWeaverChangeStatusForm [aria-labelledby="select2-status-container"]'),
         movableWarpSelect2 = documentElement.find('#warpWeaverChangeStatusForm [aria-labelledby="select2-moving_warp_weaver_id-container"]'),
         status = documentElement.find('#warpWeaverChangeStatusForm [name="MapWarpWeaver[status]"]').val(),
         nextWrapId = documentElement.find('#warpWeaverChangeStatusForm [name="MapWarpWeaverInventory[moving_warp_weaver_id]"]').val(),
-        hasError = false;
+        hasError = false, hasInventoryToMove = false;
+
+    for (value of formData) {
+        if (
+            value['name'].indexOf('MapWarpWeaverInventory') !== -1 
+            && value['value'] != "" 
+            && value['value'] > 0
+        ) {
+            hasInventoryToMove = true;
+            break;
+        }
+    }
 
     statusSelect2.removeClass('border border-danger');
-    movableWarpSelect2.removeClass('border border-danger');
     if (status == '') {
         statusSelect2.addClass('border border-danger');
         hasError = true;
     }
-    if (status == 6 && nextWrapId == '') {
-        movableWarpSelect2.addClass('border border-danger');
-        hasError = true;
+    if (hasInventoryToMove) {
+        movableWarpSelect2.removeClass('border border-danger');
+        if (status == 6 && nextWrapId == '') {
+            movableWarpSelect2.addClass('border border-danger');
+            hasError = true;
+        }
+    } else {
+        formData = [
+            {
+                name: 'MapWarpWeaver[status]', 
+                value : documentElement.find('#warpWeaverChangeStatusForm [name="MapWarpWeaver[status]"]').val()
+            }
+        ];
     }
+    
     if (hasError) {
         return false;
     }

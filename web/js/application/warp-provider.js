@@ -50,6 +50,7 @@ function updateColourName(elementName, colour) {
             'MapWarpWeaver[body_colour]':'bodyColour-source',
             'MapWarpWeaver[pettu_colour]':'pettuColour-source' 
         }, changedColour = $(`#${elementId[elementName]}`).spectrum('get'),
-        colourName = getKeyByValue(colourList, changedColour.toName());
+        changedColourCode = changedColour.toName() !== false ? changedColour.toName() : changedColour.toHexString(),
+        colourName = getKeyByValue(colourList, changedColourCode);
     $(`input[name="${elementName}"]`).val(colourName);
 }

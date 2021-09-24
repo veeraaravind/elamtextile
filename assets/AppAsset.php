@@ -49,7 +49,8 @@ class AppAsset extends AssetBundle
         'js/application/weaver-loom.js',
         'js/application/warp-provider.js',
         'js/application/babeen-provider.js',
-        'js/application/weaver-detailed-view.js'
+        'js/application/weaver-detailed-view.js',
+        'js/application/reports.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',
