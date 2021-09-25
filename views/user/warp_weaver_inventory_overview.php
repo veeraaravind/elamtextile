@@ -2,7 +2,10 @@
 
 use app\models\MapWarpWeaver;
 
-$sareeCountCalculation = $mapWarpWeaverInventoryData['manipulated_business_data']['sareeCountCalculation']; 
+$sareeCountCalculation = $mapWarpWeaverInventoryData['manipulated_business_data']['sareeCountCalculation'];
+$babeenDetails = $mapWarpWeaverInventoryData['manipulated_business_data']['warpBabeenDetails'];
+$warpStatus = MapWarpWeaver::getWarpStatusList();
+
 ?>
 <div class="card">
     <div class="card-body">
@@ -140,6 +143,50 @@ $sareeCountCalculation = $mapWarpWeaverInventoryData['manipulated_business_data'
                         </td>
                     </tr>
                     <tr>
+                        <td class="table-active"><b><?php echo Yii::t('app', 'Babeen Details'); ?></b></td>
+                        <td colspan="3">
+                            <?php if (!empty($babeenDetails)): ?>
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th><?php echo Yii::t('app', 'Provider'); ?></th>
+                                            <th><?php echo Yii::t('app', 'Left Babeen'); ?></th>
+                                            <th><?php echo Yii::t('app', 'Right Babeen'); ?></th>
+                                            <th><?php echo Yii::t('app', 'Status'); ?></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($babeenDetails as $eachBabeen): ?>
+                                            <?php 
+                                                echo sprintf(
+                                                    '<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>',
+                                                    $eachBabeen['babeen_provider_name'],
+                                                    sprintf(
+                                                        '<i>%s</i>: <b>%s</b>, <i>%s</i>: <b>%s</b>',
+                                                        Yii::t('app', 'Yelai'),
+                                                        $eachBabeen['left_babeen_yelai'],
+                                                        Yii::t('app', 'Length'), 
+                                                        $eachBabeen['left_babeen_length']
+                                                    ),
+                                                    sprintf(
+                                                        '<i>%s</i>: <b>%s</b>, <i>%s</i>: <b>%s</b>',
+                                                        Yii::t('app', 'Yelai'),
+                                                        $eachBabeen['right_babeen_yelai'],
+                                                        Yii::t('app', 'Length'), 
+                                                        $eachBabeen['right_babeen_length']
+                                                    ),
+                                                    $warpStatus[$eachBabeen['status']]
+                                                );
+                                            ?>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            <?php else: ?>
+                                <?php echo Yii::t('app', 'No Records Found.'); ?>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <tr>
                         <td class="table-active"><b><?php echo Yii::t('app', 'Additional Details'); ?></b></td>
                         <td colspan="3">
                             <label>
@@ -160,6 +207,27 @@ $sareeCountCalculation = $mapWarpWeaverInventoryData['manipulated_business_data'
                                     ); 
                                 ?>
                             </label>
+                            <?php if (empty($isPrint)): ?>
+                                <br>
+                                <label>
+                                    <?php 
+                                        echo sprintf(
+                                            '%s : <b>%s</b>', 
+                                            Yii::t('app', 'Warp Provider'),
+                                            $sareeCountCalculation['warp_provider_name'] 
+                                        ); 
+                                    ?>
+                                </label>
+                                <label class="ml-3">
+                                    <?php 
+                                        echo sprintf(
+                                            '%s : <b>%s</b>', 
+                                            Yii::t('app', 'Warp Roller'),
+                                            $sareeCountCalculation['warp_roller_name']
+                                        ); 
+                                    ?>
+                                </label>
+                            <?php endif; ?>
                         </td>
                     </tr>
                 </tbody>
