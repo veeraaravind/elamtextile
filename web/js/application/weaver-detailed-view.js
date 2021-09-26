@@ -37,8 +37,8 @@ function validateWarpWeaverInventory(formDataElement) {
 function warpWeaverDetailsDropdown(warpWeaverId) {
     let documentElement = $(document);
 
-    $('.warpInitialText, .warpWeaverInventoryRecords, .printWarpWeaverInventory').addClass('d-none');
-    $('.spinnerClass').addClass('spinner-border');
+    documentElement.find('.warpInitialText, .warpWeaverInventoryRecords, .printWarpWeaverInventory').addClass('d-none');
+    documentElement.find('.spinnerClass').addClass('spinner-border');
     if (warpWeaverId > 0) {
         $.get(
             `${baseURL}user/warp-details&warp_weaver_id=${warpWeaverId}`
@@ -46,15 +46,15 @@ function warpWeaverDetailsDropdown(warpWeaverId) {
             $('.warpWeaverInventoryGrid').html(response);
             documentElement.find('.warpWeaverInventoryGrid #MapWarpWeaverInventoryTable').DataTable();
         }).always(function() {
-            $('.spinnerClass').removeClass('spinner-border');
-            $('.warpWeaverInventoryRecords, .printWarpWeaverInventory').removeClass('d-none');
+            documentElement.find('.spinnerClass').removeClass('spinner-border');
+            documentElement.find('.warpWeaverInventoryRecords, .printWarpWeaverInventory').removeClass('d-none');
             if (documentElement.find('.warpStatus .badge').attr('data-status') == 6) {
                 documentElement.find('.warpWeaverChangeStatus').addClass('d-none');
             }
         });
     } else {
-        $('.warpInitialText').removeClass('d-none');
-        $('.spinnerClass').removeClass('spinner-border');
+        documentElement.find('.warpInitialText').removeClass('d-none');
+        documentElement.find('.spinnerClass').removeClass('spinner-border');
     }
 }
 

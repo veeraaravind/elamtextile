@@ -32,7 +32,7 @@ $isWarpFinished = $mapWarpWeaverInventoryData['manipulated_business_data']['sare
             <th><?php echo Yii::t('app', 'Return Jarigai'); ?></th>
             <th><?php echo Yii::t('app', 'Given Yarn'); ?></th>
             <th><?php echo Yii::t('app', 'Return Yarn'); ?></th>
-            <th><?php echo Yii::t('app', 'Sarees Count'); ?></th>
+            <th><?php echo Yii::t('app', 'Total Sarees'); ?></th>
             <th><?php echo Yii::t('app', 'Amount'); ?></th>
             <th style="width: 40px;"><?php echo Yii::t('app', ''); ?></th>
         </tr>
@@ -56,7 +56,15 @@ $isWarpFinished = $mapWarpWeaverInventoryData['manipulated_business_data']['sare
                     </td>
                     <td><?php echo $eachRecord['given_yarn_weight'] ? sprintf('%s', $eachRecord['given_yarn_weight']) : ''; ?></td>
                     <td><?php echo $eachRecord['return_yarn_weight'] ? sprintf('%s', $eachRecord['return_yarn_weight']) : ''; ?></td>
-                    <td><?php echo $eachRecord['produced_sarees']; ?></td>
+                    <td>
+                        <?php 
+                            echo sprintf(
+                                '%s %s', 
+                                $eachRecord['produced_sarees'], 
+                                $eachRecord['production_return_sarees'] > 0 ? sprintf('( <span style="color:red">%s</span> )', $eachRecord['production_return_sarees']) : ''
+                            ); 
+                        ?>
+                    </td>
                     <td><?php echo floatval($eachRecord['given_amount']) + floatval($eachRecord['given_net_transfer_amount']); ?></td>
                     <td>
                         <a href="javascript:;" class="viewWarpWeaverInventory" title="View" data-id="<?php echo $eachRecord['id']; ?>" data-model="<?php echo 'MapWarpWeaverInventory'; ?>"><i class="material-icons">visibility</i></a> 

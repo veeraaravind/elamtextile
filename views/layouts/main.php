@@ -114,7 +114,8 @@ AppAsset::register($this);
                                     )) ? true : false
                                 ],
                                 ['label' => Yii::t('app', 'Reports'), 'icon' => 'flag', 'items' => [
-                                    ['label' => Yii::t('app', 'Finished Warp Details'), 'icon' => 'building', 'url' => ['/user/finished-warp-report']]
+                                    ['label' => Yii::t('app', 'Finished Warp Details'), 'icon' => 'list-alt', 'url' => ['/user/finished-warp-report']],
+                                    ['label' => Yii::t('app', 'Weaver Amount Details'), 'icon' => 'rupee-sign', 'url' => ['/user/weaver-amount-report']]
                                 ]],
                             ],
                         ]);

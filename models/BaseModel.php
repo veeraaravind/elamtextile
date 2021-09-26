@@ -49,6 +49,15 @@ class BaseModel extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function getPaymentModeName($paymentMode)
+    {
+        if ($paymentMode !== null && is_numeric($paymentMode)) {
+            $paymentModes = self::getPaymentMode();
+            return isset($paymentModes[$paymentMode]) ? $paymentModes[$paymentMode] : '';
+        }
+        return '';
+    }
+
     public static function getPaymentMode()
     {
         return [
