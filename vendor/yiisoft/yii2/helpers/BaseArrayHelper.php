@@ -70,6 +70,8 @@ class BaseArrayHelper
             }
 
             return $object;
+        } elseif ($object instanceof \DateTimeInterface) {
+            return (array)$object;
         } elseif (is_object($object)) {
             if (!empty($properties)) {
                 $className = get_class($object);
@@ -952,7 +954,7 @@ class BaseArrayHelper
                 continue;
             }
 
-            if (is_string($filter) && strpos($filter, '!') === 0) {
+            if (is_string($filter) && strncmp($filter, '!', 1) === 0) {
                 $excludeFilters[] = substr($filter, 1);
                 continue;
             }

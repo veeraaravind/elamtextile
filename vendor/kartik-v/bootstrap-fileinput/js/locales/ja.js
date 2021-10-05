@@ -15,7 +15,16 @@
  *    \u3200-\u32ff : Enclosed CJK Letters and Months
  *    \uff00-\uffef : Halfwidth and Fullwidth Forms
  */
-(function ($) {
+(function (factory) {
+    'use strict';
+    if (typeof define === 'function' && define.amd) {
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && typeof module.exports === 'object') {
+        factory(require('jquery'));
+    } else {
+        factory(window.jQuery);
+    }
+}(function ($) {
     "use strict";
 
     $.fn.fileinputLocales['ja'] = {
@@ -120,4 +129,4 @@
             close: 'プレビューを閉じる'
         }
     };
-})(window.jQuery);
+}));

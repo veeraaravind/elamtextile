@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => NULL,
+        'reference' => 'b17e805fa9006b683960112f293f9f72522277d5',
         'name' => 'veera/elamtextile',
         'dev' => true,
     ),
@@ -204,7 +204,7 @@
             'type' => 'library',
             'install_path' => __DIR__ . '/../guzzlehttp/psr7',
             'aliases' => array(),
-            'reference' => '9d006741ba865a45adccfac45d8e1053086a5a3f',
+            'reference' => 'a0c4a5f6371763bb8a178839a541f407b3cbeb72',
             'dev_requirement' => true,
         ),
         'kartik-v/bootstrap-fileinput' => array(
@@ -215,7 +215,7 @@
             'aliases' => array(
                 0 => '5.2.x-dev',
             ),
-            'reference' => 'c1b72619697f33c293e03d1e83fcbb70b70f0148',
+            'reference' => '642849327db63231922558b580e985e27beddfc1',
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-bootstrap4-dropdown' => array(
@@ -226,7 +226,7 @@
             'aliases' => array(
                 0 => '1.0.x-dev',
             ),
-            'reference' => 'f96ed0b472e2b27ad392b961960484c9b9ea0519',
+            'reference' => 'd5a62fbb57a37c17500321f58cb567080ff2f047',
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-bootstrap5-dropdown' => array(
@@ -237,7 +237,7 @@
             'aliases' => array(
                 0 => '1.0.x-dev',
             ),
-            'reference' => 'a5de5a0be15928efbf639fe5e1eb267516313ec8',
+            'reference' => '8e863fa5b6398c16445405fde056fe8e6dbbac5a',
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-date-range' => array(
@@ -270,7 +270,7 @@
             'aliases' => array(
                 0 => '3.3.x-dev',
             ),
-            'reference' => '61fd7499317608ea7c910bd918a7c208d1962284',
+            'reference' => 'c8411420e3e1d146b24d22967fd3267df58791ad',
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-krajee-base' => array(
@@ -336,7 +336,7 @@
             'aliases' => array(
                 0 => '2.2.x-dev',
             ),
-            'reference' => '5b3c91df7908193981033cb7ca52e83303197753',
+            'reference' => 'd0ea066fabcc7958d30afde981921cf1abcd2e7e',
             'dev_requirement' => false,
         ),
         'kartik-v/yii2-widget-sidenav' => array(
@@ -756,12 +756,12 @@
             'dev_requirement' => true,
         ),
         'veera/elamtextile' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => NULL,
+            'reference' => 'b17e805fa9006b683960112f293f9f72522277d5',
             'dev_requirement' => false,
         ),
         'webmozart/assert' => array(
@@ -781,7 +781,7 @@
             'aliases' => array(
                 0 => '2.0.x-dev',
             ),
-            'reference' => '340b585096d8990963450810c6d6e62bc47082b1',
+            'reference' => 'ebf0675a2c0e48eb6b39c223b8d3ef2f0f659b4f',
             'dev_requirement' => false,
         ),
         'yiisoft/yii2-bootstrap4' => array(

@@ -1,10 +1,27 @@
 Change Log: `bootstrap-fileinput`
 =================================
 
+## version 5.2.6
+
+**Date**: 23-Sep-2021
+
+- (bug #1758): Correct bootstrap module parser.
+- (enh #1756): Replace `getLoadingUrl` to a new `$h.getZoomPlaceholder` method.
+
+## version 5.2.5
+
+**Date**: 19-Sep-2021
+
+- (enh #1755): Simplify NPM module handling.
+
+
 ## version 5.2.4
 
-**Date**: 03-Sep-2021
+**Date**: 18-Sep-2021
 
+- (enh #1754): Default button styling & Explorer theme enhancements.
+- (enh #1753): Enhance NPM module handling.
+- (enh #1752): Enhance exif properties validation .
 - (enh #1750): Enhancements to file caption icon and input group styling.
 - (enh #1744): Enhance zoom cache temporary url to use loader image.
 - (enh #1741): Fix zoom cache 404 console warnings.
