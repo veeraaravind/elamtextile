@@ -142,19 +142,14 @@ function updateCustomFieldValues(model, viewResponse) {
     if (model == 'User' && documentElement.find('.loomDetails').length > 0) {
         updateLoomDetails(viewResponse);
     } else if (model == 'MapWarpWeaver') {
-        let fieldsList = {'body_colour':'bodyColour', 'pettu_colour':'pettuColour'};
-        
-        for (key in fieldsList) {
-            let tempColour = '';
-
-            if (key in viewResponse['data'] 
-                && typeof viewResponse['data'][key] == 'string'
-                && viewResponse['data'][key].length > 0
-            ) {
-                tempColour = viewResponse['data'][key];
-                tempColour = colourList[tempColour]; 
-            }
-            documentElement.find(`#${fieldsList[key]}-source`).spectrum("set", tempColour);
+        let bodyColour = documentElement.find(`#bodyColour`),
+            pettuColour = documentElement.find(`#pettuColour`);
+            
+        if (bodyColour.val() == '' || bodyColour.val() == null) {
+            bodyColour.val('-1').change();
+        }
+        if (pettuColour.val() == '' || pettuColour.val() == null) {
+            pettuColour.val('-1').change();
         }
     } else if (model == 'Colour') {
         let key = 'code', tempColour = '';
@@ -305,8 +300,8 @@ $(document).on('click', '.createDataModal', function(e) {
             break;
         case 'MapWarpWeaver':
             let documentElement = $(document);
-            documentElement.find(`#bodyColour-source`).spectrum("set", '');
-            documentElement.find(`#pettuColour-source`).spectrum("set", '');
+            documentElement.find(`#bodyColour`).val('-1').change();
+            documentElement.find(`#pettuColour`).val('-1').change();
             break;
         default:
             break;

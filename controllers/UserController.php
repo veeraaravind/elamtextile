@@ -214,11 +214,31 @@ class UserController extends BaseController
                 'id',
                 'name'
             );
-            $colourList = ArrayHelper::map(
-                Colour::find()->where(['status' => 1])->all(),
-                'name',
-                'code'
-            );
+
+            $colourListArray = Colour::find()->where(['status' => 1])->asArray()->all();
+            $colourList = [
+                [
+                    'id' => '-1', 
+                    'text' => sprintf('<div>%s</div>',Yii::t('app', 'Select Colour')),
+                    'html' => sprintf('<div>%s</div>',Yii::t('app', 'Select Colour'))
+                ]
+            ];
+            foreach ($colourListArray as $value) {
+                $tempOption = sprintf(
+                    '<div class="palette-input-color">
+                        <span>%s</span>
+                        <div class="color-box" style="background-color: %s;"></div>
+                    </div>',
+                    $value['name'],
+                    $value['code']
+                );
+                $colourList[] = [
+                    'id' => $value['name'],
+                    'text' => $tempOption,
+                    'html' => $tempOption,
+                ];
+            }
+            
             
             return $this->render(
                 'warp_provider_view',

@@ -40,7 +40,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'name',
+            [
+                'attribute' => 'name',
+                'format' => 'raw',
+                'value' => function ($data) {
+                    return Html::a($data->name, ['/user/detailed-view', 'id' => $data->id]);
+                },
+            ],
             'mobile_number',
             [
                 'attribute' => 'bank_id',

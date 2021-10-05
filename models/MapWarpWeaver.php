@@ -133,6 +133,12 @@ class MapWarpWeaver extends \app\models\BaseModel
         if (!empty($this->date) && ($convertedDate = strtotime($this->date))) {
             $this->date = $convertedDate;
         }
+        if (!empty($this->body_colour) && $this->body_colour == '-1') {
+            $this->body_colour = null;
+        }
+        if (!empty($this->pettu_colour) && $this->pettu_colour == '-1') {
+            $this->pettu_colour = null;
+        }
         
         return parent::beforeValidate();
     }

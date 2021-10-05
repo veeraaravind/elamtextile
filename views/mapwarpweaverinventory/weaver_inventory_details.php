@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row" style="border:1px solid #dee2e6;">
+    <div class="row" style='border:1px solid #dee2e6;'>
         <div class="col-md-12">
             <div class="row">
                     <div class="col-xs-3 text-left">

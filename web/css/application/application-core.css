@@ -89,3 +89,27 @@ main > .parent-container {
     z-index: 1030;
 }
 
+.palette-input-color {
+    position: relative;
+}
+
+.palette-input-color span {
+    padding-left: 30px;
+}
+
+.palette-input-color .color-box {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #ccc;
+    position: absolute;
+    left: 5px;
+    top: 3px;
+    border: 1px solid black;
+}
+
+.select2-selection__rendered .palette-input-color .color-box {
+    width: 15px;
+    height: 15px;
+}
+

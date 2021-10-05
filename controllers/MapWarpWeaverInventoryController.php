@@ -13,7 +13,6 @@ use Exception;
 use app\models\MapWarpWeaver;
 use app\models\MapWarpBabeenWeaver;
 use app\models\SubWarpBabeenWeaver;
-use kartik\mpdf\Pdf;
 
 /**
  * MapWarpWeaverInventoryController implements the CRUD actions for MapWarpWeaverInventory model.
@@ -272,6 +271,14 @@ class MapWarpWeaverInventoryController extends BaseController
             date('Y-m-d_H-i-s')
         );
         $pdf = Yii::$app->pdf;
+        if (Yii::$app->language != 'en_US') {
+            $pdf->cssInline = "body { font-family: freeserif; }";
+            $content = str_replace(
+                ['<b>', '</b>', '<i>', '</i>'], 
+                ['<span>', '</span>', '<span>', '</span>'], 
+                $content
+            );
+        }
         $pdf->content = $content;
         $pdf->filename = $fileName;
         return $pdf->render();

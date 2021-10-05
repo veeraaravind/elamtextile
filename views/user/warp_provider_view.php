@@ -9,6 +9,7 @@ use kartik\select2\Select2;
 use app\models\UserType;
 use kartik\color\ColorInput;
 use app\models\Colour;
+use yii\web\JsExpression;
 
 $colourListBreak = array_chunk($colourList, 9);
 ?>
@@ -263,46 +264,46 @@ $colourListBreak = array_chunk($colourList, 9);
                                 <div class="form-row">
                                     <div class="col-md-3 mb-3">
                                         <label for="bodyColour"><?php echo Yii::t('app', 'Udal Colour'); ?><span style="color:red">*</span></label>
-                                        <?php echo ColorInput::widget([
-                                                'name' => 'MapWarpWeaver[body_colour]',
-                                                'showDefaultPalette' => false,
-                                                'options' => ['class' => 'form-control', 'id' => 'bodyColour', 'required' => true],
-                                                'pluginOptions' => [
-                                                    'showPalette' => true,
-                                                    'showPaletteOnly' => true,
-                                                    'hideAfterPaletteSelect' => true,
-                                                    'preferredFormat' => 'name',
-                                                    'palette' => $colourListBreak
-                                                ],
-                                                'pluginEvents' => [
-                                                    "change" => "function(colour) { 
-                                                        updateColourName('MapWarpWeaver[body_colour]', colour);
-                                                        return false;
-                                                    }"
+                                        <?php 
+                                            echo Select2::widget(
+                                                [
+                                                    'name' => 'MapWarpWeaver[body_colour]',
+                                                    'theme' => Select2::THEME_BOOTSTRAP,
+                                                    'pluginOptions' => [
+                                                        'data' => $colourList,
+                                                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                                        'templateResult' => new JsExpression('function (data) { return data.html; }'),
+                                                        'templateSelection' => new JsExpression('function (data) { return data.text; }')
+                                                    ],
+                                                    'options' => [
+                                                        'id' => 'bodyColour', 
+                                                        'class' => 'form-control', 
+                                                        'required' => true
+                                                    ]
                                                 ]
-                                            ]);
+                                            ); 
                                         ?>
                                     </div>
                                     <div class="col-md-3 mb-3">
                                         <label for="pettuColour"><?php echo Yii::t('app', 'Pettu Colour'); ?></label>
-                                        <?php echo ColorInput::widget([
-                                                'name' => 'MapWarpWeaver[pettu_colour]',
-                                                'showDefaultPalette' => false,
-                                                'options' => ['class' => 'form-control', 'id' => 'pettuColour'],
-                                                'pluginOptions' => [
-                                                    'showPalette' => true,
-                                                    'showPaletteOnly' => true,
-                                                    'hideAfterPaletteSelect' => true,
-                                                    'preferredFormat' => 'name',
-                                                    'palette' => $colourListBreak
-                                                ],
-                                                'pluginEvents' => [
-                                                    "change" => "function(colour) { 
-                                                        updateColourName('MapWarpWeaver[pettu_colour]', colour);
-                                                        return false;
-                                                    }"
+                                        <?php 
+                                            echo Select2::widget(
+                                                [
+                                                    'name' => 'MapWarpWeaver[pettu_colour]',
+                                                    'theme' => Select2::THEME_BOOTSTRAP,
+                                                    'pluginOptions' => [
+                                                        'data' => $colourList,
+                                                        'escapeMarkup' => new JsExpression('function (markup) { return markup; }'),
+                                                        'templateResult' => new JsExpression('function (data) { return data.html; }'),
+                                                        'templateSelection' => new JsExpression('function (data) { return data.text; }')
+                                                    ],
+                                                    'options' => [
+                                                        'id' => 'pettuColour', 
+                                                        'class' => 'form-control', 
+                                                        'required' => true
+                                                    ]
                                                 ]
-                                            ]);
+                                            ); 
                                         ?>
                                     </div>
                                 </div>
