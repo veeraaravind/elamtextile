@@ -53,3 +53,27 @@ $(document).on('click', '.searchWeaverAmountDetails', function(e) {
         $('.spinnerClass').removeClass('spinner-border');
     }
 });
+
+$(document).on('click', '.searchWeaverInventoryDetails', function(e) {
+    let weaverId = $(document).find('#weaver_id').val(),
+        startDate = $(document).find('#start_date').val(),
+        endDate = $(document).find('#end_date').val();
+
+    $('.amountInitialText, .weaverInventoryRecords').addClass('d-none');
+    $('.spinnerClass').addClass('spinner-border');
+    if (startDate.length > 0 && endDate.length > 0) {
+        $.post(
+            `${baseURL}user/weaver-inventory-report`,
+            {weaver_id:weaverId, start_date:startDate, end_date:endDate}
+        ).done(function(response) {
+            $('.weaverInventoryRecords').html(response);
+            $('.weaverInventoryRecords #weaverInventoryRecordsTable').DataTable();
+        }).always(function() {
+            $('.spinnerClass').removeClass('spinner-border');
+            $('.weaverInventoryRecords').removeClass('d-none');
+        });
+    } else {
+        $('.warpInitialText').removeClass('d-none');
+        $('.spinnerClass').removeClass('spinner-border');
+    }
+});

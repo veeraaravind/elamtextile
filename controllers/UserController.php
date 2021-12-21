@@ -345,7 +345,8 @@ class UserController extends BaseController
                     JOIN user u on u.id = wl.weaver_id AND u.user_type_id =:user_type_id
                     JOIN saree_type st on st.id = ww.saree_type_id
                 WHERE
-                    ##CONDITION##
+                    (wwi.given_amount > 0 || wwi.given_net_transfer_amount > 0 || wwi.mistake_amount > 0) 
+                    AND ##CONDITION##
             ';
 
             $replacement = ['wwi.date >= :startDate AND wwi.date <= :endDate'];
@@ -377,6 +378,72 @@ class UserController extends BaseController
         
         return $this->render(
             'weaver_amount_details',
+            [
+                'weaverList' => $weaverList
+            ]
+        );
+    }
+
+    public function actionWeaverInventoryReport()
+    {
+        if ($this->request->isPost) {
+            $weaverId = $_POST['weaver_id'];
+            $startTime = strtotime(sprintf('%s 00:00:00', $_POST['start_date']));
+            $endTime = strtotime(sprintf('%s 23:59:59', $_POST['end_date']));
+
+            $sql = 'SELECT
+                    wwi.*,
+                    concat(
+                        u.name, 
+                        "[ ", wl.loom_name, " ]",
+                        "[ ", ww.name, " ]",
+                        "[ ", st.name, " ]"
+                    ) as "weaver_name"
+                FROM
+                    map_warp_weaver_inventory as wwi
+                    JOIN map_warp_weaver ww ON ww.id = wwi.warp_weaver_id
+                    JOIN map_weaver_loom as wl ON ww.weaver_loom_id = wl.id
+                    JOIN user u on u.id = wl.weaver_id AND u.user_type_id =:user_type_id
+                    JOIN saree_type st on st.id = ww.saree_type_id
+                WHERE
+                    (
+                        wwi.given_yarn_quantity > 0 
+                        || wwi.given_yarn_weight > 0 
+                        || wwi.given_jarigai_quantity > 0
+                        || wwi.given_jarigai_weight > 0
+                    ) 
+                    AND ##CONDITION##
+            ';
+
+            $replacement = ['wwi.date >= :startDate AND wwi.date <= :endDate'];
+            $params = [
+                ':startDate' => $startTime, 
+                ':endDate' => $endTime, 
+                ':user_type_id' => UserType::$weaver
+            ];
+            if (!empty($weaverId)) {
+                $replacement[] = 'u.id =:user_id';
+                $params[':user_id'] = $weaverId;
+            }
+            $sql = str_replace('##CONDITION##', implode(' AND ', $replacement), $sql);
+            $sqlQuery = Yii::$app->getDb()->createCommand($sql, $params);
+            $weaverInventoryRecord = $sqlQuery->queryAll();
+
+            return $this->renderAjax(
+                'weaver_inventory_grid',
+                [
+                    'weaverInventoryData' => $weaverInventoryRecord
+                ]
+            );
+        }
+        $weaverList = ArrayHelper::map(
+            User::find()->where(['user_type_id' => UserType::$weaver])->asArray()->all(),
+            'id',
+            'name'
+        );
+        
+        return $this->render(
+            'weaver_inventory_details',
             [
                 'weaverList' => $weaverList
             ]

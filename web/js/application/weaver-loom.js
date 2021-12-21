@@ -11,7 +11,7 @@ let loomDetailstemplate = `
             </select>
         </div>
         <div class="col-md-4 mb-4">
-            <button type="button" class="btn btn-danger btn-sm deleteLoomItem"><i class="material-icons">delete</i></button>
+            <button type="button" class="btn btn-danger btn-sm deleteLoomItem"><i class="fa fa-trash-alt"></i></button>
         </div>
     </div>
 `;

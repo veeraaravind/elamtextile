@@ -192,9 +192,9 @@ class MapWarpWeaverController extends BaseController
 
         if ($remainingInventoryDetails) {
             $temp = $remainingInventoryDetails['manipulated_business_data']['sareeCountCalculation'];
-            $response['movableInventoryDetails']['moving_given_yarn_weight'] = $temp['needed_yarn_weight'] < 0 ? -(number_format($temp['needed_yarn_weight'], 3)) : 0;
-            $response['movableInventoryDetails']['moving_given_jarigai_weight'] = $temp['needed_jarigai_weight'] < 0 ? -(number_format($temp['needed_jarigai_weight'], 3)) : 0;
-            $response['movableInventoryDetails']['moving_given_babeen_meter'] = $temp['needed_babeen_meter'] < 0 ? -(number_format($temp['needed_babeen_meter'], 3)) : 0;
+            $response['movableInventoryDetails']['moving_given_yarn_weight'] = $temp['needed_yarn_weight'] < 0 ? -(number_format($temp['needed_yarn_weight'], 3, '.', '')) : 0;
+            $response['movableInventoryDetails']['moving_given_jarigai_weight'] = $temp['needed_jarigai_weight'] < 0 ? -(number_format($temp['needed_jarigai_weight'], 3, '.', '')) : 0;
+            $response['movableInventoryDetails']['moving_given_babeen_meter'] = $temp['needed_babeen_meter'] < 0 ? -(number_format($temp['needed_babeen_meter'], 3, '.', '')) : 0;
             $response['movableInventoryDetails']['moving_given_amount'] = $temp['total_weaver_advance_fee_inhand'] > 0 ? $temp['total_weaver_advance_fee_inhand'] : 0;
             $response['movableInventoryDetails']['moving_given_jarigai_quantity'] = $temp['needed_jarigai_quantity_to_return'];
         }

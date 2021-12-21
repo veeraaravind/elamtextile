@@ -84,13 +84,13 @@ class BaseModel extends \yii\db\ActiveRecord
             'template' => '{View} {Update} {Delete}',
             'buttons'  => [
                 'View'   => function ($url, $model) {
-                    return Html::a('<i class="material-icons">visibility</i>', 'javascript:;', ['title' => 'View']);
+                    return Html::a('<i class="fa fa-eye gridActionIcon"></i>', 'javascript:;', ['title' => 'View']);
                 },
                 'Update' => function ($url, $model) {
-                    return Html::a('<i class="material-icons">edit</i>', 'javascript:;', ['title' => 'Update']);
+                    return Html::a('<i class="fa fa-pencil-alt gridActionIcon"></i>', 'javascript:;', ['title' => 'Update']);
                 },
                 'Delete' => function ($url, $model) {
-                    return Html::a('<i class="material-icons">delete</i>', 'javascript:;', ['title' => 'Delete']);
+                    return Html::a('<i class="fa fa-trash-alt gridActionIcon"></i>', 'javascript:;', ['title' => 'Delete']);
                 },
             ]
         ];

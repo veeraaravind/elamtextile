@@ -115,7 +115,8 @@ AppAsset::register($this);
                                 ],
                                 ['label' => Yii::t('app', 'Reports'), 'icon' => 'flag', 'items' => [
                                     ['label' => Yii::t('app', 'Finished Warp Details'), 'icon' => 'list-alt', 'url' => ['/user/finished-warp-report']],
-                                    ['label' => Yii::t('app', 'Weaver Amount Details'), 'icon' => 'rupee-sign', 'url' => ['/user/weaver-amount-report']]
+                                    ['label' => Yii::t('app', 'Weaver Amount Details'), 'icon' => 'rupee-sign', 'url' => ['/user/weaver-amount-report']],
+                                    ['label' => Yii::t('app', 'Given Inventory Details'), 'icon' => 'boxes', 'url' => ['/user/weaver-inventory-report']]
                                 ]],
                             ],
                         ]);

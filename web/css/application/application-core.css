@@ -58,10 +58,6 @@ main > .parent-container {
     overflow-y: scroll;
 }
 
-.grid-view .action-column {
-    min-width: 106px;
-}
-
 .map-warp-weaver-index {
     margin-top: 10px;
 }
@@ -111,5 +107,14 @@ main > .parent-container {
 .select2-selection__rendered .palette-input-color .color-box {
     width: 15px;
     height: 15px;
+}
+
+.gridActionIcon {
+    font-size: 24px;
+}
+
+th.action-column {
+    max-width: 120px;
+    min-width: 106px;
 }
 

@@ -43,7 +43,7 @@ use yii\helpers\Html;
                             <input type="number" name="MapWarpWeaver[<?php echo $eachRecord->id; ?>][amount]" min="0" placeholder="0.00" step="1.00" pattern="^\d+(?:\.\d{5,2})?$" class="form-control">
                         </td>
                         <td>
-                            <?php echo Html::a('<i class="material-icons">delete</i>', 'javascript:;', ['title' => 'Delete', 'class' => 'deleteWarpPaymentRecord']); ?>
+                            <?php echo Html::a('<i class="fa fa-trash-alt gridActionIcon">delete</i>', 'javascript:;', ['title' => 'Delete', 'class' => 'deleteWarpPaymentRecord']); ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

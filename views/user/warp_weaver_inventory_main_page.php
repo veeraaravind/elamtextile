@@ -23,7 +23,9 @@ use kartik\select2\Select2;
             <button type="button" class="btn btn-primary"><?php echo Yii::t('app', 'Create Next Warp'); ?></button>
         </div>
         <div class="col-sm-3">
-            <a href="javascript:;" class="btn btn-small btn-info d-none printWarpWeaverInventory" title="Print" data-model="<?php echo 'MapWarpWeaverInventory'; ?>"><i class="material-icons">print</i></a>
+            <a href="javascript:;" class="btn btn-small btn-info d-none printWarpWeaverInventory" title="Print" data-model="<?php echo 'MapWarpWeaverInventory'; ?>">
+                <span><i class="fa fa-print"></i></span>
+            </a>
         </div>
     </div>
     <div class="jumbotron jumbotron-fluid">

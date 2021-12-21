@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-2">
                             <a class="btn btn-small btn-primary addTranslation"><i class="fa fa-plus"></i></a>
-                            <a class="btn btn-small btn-danger <?php if ($index == 0) { echo 'd-none'; } ?> deleteTranslation"><i class="fa fa-trash"></i></a>
+                            <a class="btn btn-small btn-danger <?php if ($index == 0) { echo 'd-none'; } ?> deleteTranslation"><i class="fa fa-trash-alt"></i></a>
                         </div>
                     </div>
                 <?php $index++; endforeach; ?>

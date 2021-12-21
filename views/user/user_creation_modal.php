@@ -51,7 +51,7 @@ use yii\helpers\ArrayHelper;
                                     <div class="generatedLoom"></div>
                                     <div class="col-md-4 mb-4">
                                         <button type="button" class="btn btn-primary btn-sm addLoomItem">
-                                            <?php echo Yii::t('app', 'Add Loom'); ?>
+                                            <span><i class="fa fa-plus mr-1"></i><?php echo Yii::t('app', 'Add Loom'); ?></span>
                                         </button>
                                     </div>
                                 </div>

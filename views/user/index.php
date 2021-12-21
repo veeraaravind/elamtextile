@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{detailed-view}',
                 'buttons'  => [
                     'detailed-view'   => function ($url, $model) {
-                        return Html::a('<i class="material-icons">visibility</i>', $url, ['title' => 'Detailed View']);
+                        return Html::a('<i class="fa fa-eye gridActionIcon"></i>', $url, ['title' => 'Detailed View']);
                     }
                 ]
             ]

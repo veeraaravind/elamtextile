@@ -48,10 +48,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '{View} {Update}',
                 'buttons'  => [
                     'View'   => function ($url, $model) {
-                        return Html::a('<i class="material-icons">visibility</i>', 'javascript:;', ['title' => 'View']);
+                        return Html::a('<i class="fa fa-eye gridActionIcon"></i>', 'javascript:;', ['title' => 'View']);
                     },
                     'Update' => function ($url, $model) {
-                        return Html::a('<i class="material-icons">edit</i>', 'javascript:;', ['title' => 'Update']);
+                        return Html::a('<i class="fa fa-pencil-alt gridActionIcon"></i>', 'javascript:;', ['title' => 'Update']);
                     }
                 ]
             ]

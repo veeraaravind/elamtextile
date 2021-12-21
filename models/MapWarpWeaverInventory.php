@@ -121,7 +121,7 @@ class MapWarpWeaverInventory extends \app\models\BaseModel
         $gridAction['template'] = '{View} {Update} {Delete} {Print}';
         $gridAction['buttons']['Print'] = function ($url, $model) {
             return Html::a(
-                '<i class="material-icons">print</i>', 
+                '<i class="fa fa-print gridActionIcon"></i>', 
                 'javascript:;', 
                 [
                     'title' => 'Print',
